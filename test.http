@@ -1,0 +1,42 @@
+# Test 1: Basic curl without CSRF
+curl -X POST \
+  -H "Accept: application/json" \
+  -F "frame=@test.jpeg" \
+  http://127.0.0.1:8000/api/detect/
+
+# Test 2: With CSRF token
+###
+curl -X POST \
+  -H "Accept: application/json" \
+  -H "X-CSRFTOKEN: cMZtqTPag32fgHWqh22M8sHOc8rMZGiBW2fawS9UqTq4xwIrYJAk5uMugTf1iX7Z" \
+  -F "frame=@test.jpeg" \
+  http://127.0.0.1:8000/api/detect/
+
+# Test 3: With full path (if running from different directory)
+curl -X POST \
+  -H "Accept: application/json" \
+  -F "frame=@/Users/dipeshacharya/Desktop/hackathon/DeerHack/test.jpeg" \
+  http://127.0.0.1:8000/api/detect/
+
+# Test 4: Verbose output for debugging
+curl -X POST \
+  -H "Accept: application/json" \
+  -F "frame=@test.jpeg" \
+  -v \
+  http://127.0.0.1:8000/api/detect/
+
+
+
+###
+# Test 5: With Bearer token authorization to ngrok endpoint
+curl -X POST \
+    -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUyMjY2MjQ2LCJpYXQiOjE3NTIyNjQ0NDYsImp0aSI6IjRhZjE4NjEwZDUyOTRkZjg4Mzk5NWI4OTA1NmU2MzJiIiwidXNlcl9pZCI6MSwiaXNfc3RhZmYiOnRydWUsImlzX3N1cGVydXNlciI6dHJ1ZX0.u1f8SKIRmvmcYY-707BfucPiieqhbTbitUyY2VIzRSM" \
+    -F "frame=@/Users/dipeshacharya/Desktop/hackathon/DeerHack/test.jpeg" \
+    http://127.0.0.1:8000/api/detect/
+
+###
+curl -X 'GET' \
+  'http://127.0.0.1:8000/api/history/?period=today' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUyMjczOTMzLCJpYXQiOjE3NTIyNzIxMzMsImp0aSI6IjQ4ZTY2NGJkNjZlOTQ2NGVhZTEzNDdlZWQ5YzA1YTI4IiwidXNlcl9pZCI6MSwiaXNfc3RhZmYiOnRydWUsImlzX3N1cGVydXNlciI6dHJ1ZX0.EU56FNmW71Iy-wBgE0jZOEng0sDdL5F7jl_C-srQ9vs' \
+  -H 'X-CSRFTOKEN: 9vQ0EFUaU5lbGnmt4G2nwNxmccZkAvoETL6HKEeU4VJ0Xc8uLnAVtPC2gXNzTMd2'
